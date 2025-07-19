@@ -63,7 +63,7 @@ export const CategoriesSection = () => {
               celebração
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Diferentes opções para tornar sua festa única e especial, com tudo que você precisa
           </p>
         </div>
@@ -98,14 +98,14 @@ export const CategoriesSection = () => {
                 </div>
                 
                 <div className="text-center space-y-3">
-                  <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
                     {category.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">{category.description}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{category.description}</p>
                 </div>
 
                 <div className="text-center py-4">
-                  <div className="text-4xl font-bold text-primary group-hover:scale-110 transition-transform duration-300">
+                  <div className="text-3xl font-bold text-primary group-hover:scale-110 transition-transform duration-300">
                     R$ {category.price}
                   </div>
                   <div className="text-sm text-muted-foreground font-medium">
