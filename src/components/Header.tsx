@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Menu, X, ShoppingCart, Phone } from "lucide-react";
+import { Menu, X, ShoppingCart, Phone, User, LogOut } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useCart } from "@/hooks/useCart";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navigation = [
   { name: "Infantil Feminino", href: "#infantil-feminino" },
@@ -16,6 +20,8 @@ const navigation = [
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { totalItems } = useCart();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <header className="bg-background/95 backdrop-blur-md border-b border-border sticky top-0 z-50 shadow-card">
@@ -23,9 +29,11 @@ export const Header = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Infinitos Sonhos
-            </h1>
+            <Link to="/">
+              <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                Infinitos Sonhos
+              </h1>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
@@ -50,7 +58,12 @@ export const Header = () => {
               Contato
             </Button>
             
-            <Button variant="cart" size="sm" className="relative">
+            <Button 
+              variant="cart" 
+              size="sm" 
+              className="relative"
+              onClick={() => navigate('/cart')}
+            >
               <ShoppingCart className="w-4 h-4" />
               <span className="hidden sm:inline">Carrinho</span>
               {totalItems > 0 && (
@@ -59,6 +72,42 @@ export const Header = () => {
                 </Badge>
               )}
             </Button>
+
+            {/* User Menu */}
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="relative">
+                    <Avatar className="w-8 h-8">
+                      <AvatarFallback className="text-xs bg-gradient-primary text-primary-foreground">
+                        {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span className="hidden sm:inline ml-2">{user.name.split(' ')[0]}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem onClick={() => navigate(user.role === 'admin' ? '/admin' : '/dashboard')}>
+                    <User className="w-4 h-4 mr-2" />
+                    {user.role === 'admin' ? 'Painel Admin' : 'Minha Conta'}
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={logout}>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sair
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => navigate('/login')}
+              >
+                <User className="w-4 h-4 mr-2" />
+                <span className="hidden sm:inline">Entrar</span>
+              </Button>
+            )}
 
             {/* Mobile menu button */}
             <div className="lg:hidden">
