@@ -60,89 +60,123 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <Card className="group hover:shadow-elegant transition-all duration-300 transform hover:-translate-y-2 border-primary/10 hover:border-primary/30 overflow-hidden">
-      <div className="relative">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-        />
+    <Card className="group relative overflow-hidden hover:shadow-elegant transition-all duration-500 transform hover:-translate-y-3 border-0 bg-gradient-card backdrop-blur-sm">
+      <div className="relative overflow-hidden">
+        {/* Image with overlay effect */}
+        <div className="relative">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-56 object-cover transition-all duration-500 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        </div>
         
-        {product.badge && (
-          <Badge 
-            className={`absolute top-3 left-3 ${getBadgeVariant(product.badge)}`}
-          >
-            {product.badge}
-          </Badge>
-        )}
-
-        {product.originalPrice && (
-          <Badge className="absolute top-3 right-3 bg-destructive text-destructive-foreground">
-            -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
-          </Badge>
-        )}
-      </div>
-
-      <CardContent className="p-4 space-y-3">
-        <div>
-          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2">
-            {product.name}
-          </h3>
-          
-          {product.rating && (
-            <div className="flex items-center mt-1">
-              <div className="flex">
-                {[...Array(5)].map((_, i) => (
-                  <Star 
-                    key={i} 
-                    className={`w-3 h-3 ${
-                      i < product.rating! 
-                        ? "fill-yellow-400 text-yellow-400" 
-                        : "text-gray-300"
-                    }`} 
-                  />
-                ))}
-              </div>
-              <span className="text-xs text-muted-foreground ml-1">
-                ({product.rating}/5)
-              </span>
+        {/* Badges */}
+        <div className="absolute top-3 left-3 flex flex-col gap-2">
+          {product.badge && (
+            <div className={`px-3 py-1 rounded-full text-xs font-bold shadow-soft ${getBadgeVariant(product.badge)} animate-bounce-gentle`}>
+              {product.badge === "Mais Alugado" && "🔥 "}
+              {product.badge === "Lançamento" && "✨ "}
+              {product.badge === "Promoção" && "⚡ "}
+              {product.badge}
             </div>
           )}
         </div>
 
-        <div className="space-y-1">
-          <div className="flex items-baseline space-x-2">
-            <span className="text-2xl font-bold text-primary">
+        {product.originalPrice && (
+          <div className="absolute top-3 right-3">
+            <div className="bg-destructive text-destructive-foreground px-3 py-1 rounded-full text-xs font-bold shadow-soft animate-pulse">
+              -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+            </div>
+          </div>
+        )}
+
+        {/* Quick Action Overlay */}
+        <div className="absolute inset-0 bg-gradient-primary/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+          <div className="transform scale-75 group-hover:scale-100 transition-transform duration-500">
+            <Button 
+              variant="secondary" 
+              size="lg"
+              className="bg-white text-primary hover:bg-white/90 shadow-elegant font-bold"
+              onClick={handleAddToCart}
+            >
+              <ShoppingCart className="w-5 h-5 mr-2" />
+              Adicionar ao Carrinho
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <CardContent className="p-6 space-y-4">
+        <div className="space-y-2">
+          <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2 leading-tight">
+            {product.name}
+          </h3>
+          
+          {product.rating && (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <div className="flex mr-2">
+                  {[...Array(5)].map((_, i) => (
+                    <Star 
+                      key={i} 
+                      className={`w-4 h-4 ${
+                        i < product.rating! 
+                          ? "fill-yellow-400 text-yellow-400" 
+                          : "text-gray-300"
+                      } transition-colors duration-300`} 
+                    />
+                  ))}
+                </div>
+                <span className="text-sm text-muted-foreground font-medium">
+                  ({product.rating}/5)
+                </span>
+              </div>
+              <div className="text-xs bg-accent/20 text-accent-foreground px-2 py-1 rounded-full font-medium">
+                {product.category}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="space-y-2">
+          <div className="flex items-baseline space-x-3">
+            <span className="text-3xl font-bold text-primary group-hover:scale-110 transition-transform duration-300">
               {formatPrice(product.price)}
             </span>
             {product.originalPrice && (
-              <span className="text-sm text-muted-foreground line-through">
+              <span className="text-lg text-muted-foreground line-through">
                 {formatPrice(product.originalPrice)}
               </span>
             )}
           </div>
+          {product.originalPrice && (
+            <div className="text-sm text-green-600 font-semibold">
+              Economize {formatPrice(product.originalPrice - product.price)}
+            </div>
+          )}
         </div>
 
-        <div className="flex space-x-2">
+        <div className="flex space-x-3 pt-2">
           <Button 
             variant="outline" 
             size="sm" 
-            className="flex-1"
+            className="flex-1 group-hover:border-primary/50 transition-colors duration-300"
             onClick={() => {
-              // Scroll to product details or open modal
               toast({
                 title: "Ver detalhes",
                 description: "Funcionalidade em desenvolvimento.",
               });
             }}
           >
-            Ver Detalhes
+            👁️ Detalhes
           </Button>
           
           <Button 
             variant="default" 
             size="sm" 
-            className="flex-1"
+            className="flex-1 bg-gradient-primary hover:shadow-glow transform hover:scale-105 transition-all duration-300 font-semibold"
             onClick={handleAddToCart}
           >
             <ShoppingCart className="w-4 h-4 mr-1" />
