@@ -61,7 +61,7 @@ export const Footer = () => {
           <div className="lg:col-span-2 space-y-6">
             <div>
               <h3 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
-                Infinitos Sonhos
+                Decorae
               </h3>
               <p className="text-muted-foreground mb-6 leading-relaxed">
                 Transformamos suas celebrações em momentos inesquecíveis com nossos 
@@ -78,7 +78,7 @@ export const Footer = () => {
               </div>
               <div className="flex items-center space-x-3 text-muted-foreground">
                 <Mail className="w-5 h-5 text-primary" />
-                <span>contato@infinitossonhos.com.br</span>
+                <span>contato@decorae.com.br</span>
               </div>
               <div className="flex items-center space-x-3 text-muted-foreground">
                 <MapPin className="w-5 h-5 text-primary" />
@@ -155,7 +155,7 @@ export const Footer = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-muted-foreground text-sm">
-              © 2024 Infinitos Sonhos. Todos os direitos reservados.
+              © 2024 Decorae. Todos os direitos reservados.
             </p>
             <div className="flex space-x-6 text-sm">
               <a href="#termos" className="text-muted-foreground hover:text-primary transition-colors">

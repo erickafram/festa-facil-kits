@@ -94,7 +94,7 @@ const Login = () => {
         <div className="text-center mb-8">
           <Link to="/" className="inline-block">
             <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Infinitos Sonhos
+              Decorae
             </h1>
           </Link>
           <p className="text-muted-foreground mt-2">

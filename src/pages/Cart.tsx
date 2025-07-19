@@ -60,9 +60,18 @@ const Cart = () => {
   const finalPrice = totalPrice - discountAmount;
 
   const handleCheckout = () => {
+    // Simular geração de código PIX
+    const pixCode = `00020126580014BR.GOV.BCB.PIX0136${Math.random().toString(36).substring(2, 15)}@decorae.com.br5204000053039865802BR5913DECORAE LTDA6009SAO PAULO62070503***6304${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+    
     toast({
-      title: "Redirecionando para pagamento",
-      description: "Você será redirecionado para finalizar a compra."
+      title: "Checkout PIX Gerado!",
+      description: `Código PIX copiado! Valor: ${formatPrice(finalPrice)}. Use o código PIX para finalizar o pagamento.`,
+      duration: 5000,
+    });
+
+    // Copiar código PIX para clipboard
+    navigator.clipboard.writeText(pixCode).then(() => {
+      console.log('Código PIX copiado:', pixCode);
     });
   };
 

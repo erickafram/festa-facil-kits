@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star, ShoppingCart } from "lucide-react";
+import { Star, ShoppingCart, CreditCard } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
 import { toast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 export interface Product {
   id: string;
@@ -22,6 +23,7 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   const handleAddToCart = () => {
     addToCart({
@@ -35,10 +37,29 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
     toast({
       title: "Produto adicionado!",
-      description: `${product.name} foi adicionado ao carrinho.`,
+      description: `${product.name} foi adicionado ao carrinho. Clique no carrinho para finalizar a compra.`,
+      duration: 3000,
     });
   };
 
+  const handleBuyNow = () => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: product.image,
+      category: product.category,
+    });
+
+    toast({
+      title: "Redirecionando para checkout",
+      description: "Você será direcionado para finalizar a compra via PIX.",
+    });
+
+    // Redireciona para o carrinho
+    navigate('/cart');
+  };
   const getBadgeVariant = (badge?: string) => {
     switch (badge) {
       case "Mais Alugado":
@@ -158,29 +179,25 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           )}
         </div>
 
-        <div className="flex space-x-3 pt-2">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="flex-1 group-hover:border-primary/50 transition-colors duration-300 text-xs"
-            onClick={() => {
-              toast({
-                title: "Ver detalhes",
-                description: "Funcionalidade em desenvolvimento.",
-              });
-            }}
-          >
-            👁️ Detalhes
-          </Button>
-          
+        <div className="flex flex-col space-y-2 pt-2">
           <Button 
             variant="default" 
             size="sm" 
-            className="flex-1 bg-gradient-primary hover:shadow-glow transform hover:scale-105 transition-all duration-300 font-semibold text-xs"
+            className="w-full bg-gradient-primary hover:shadow-glow transform hover:scale-105 transition-all duration-300 font-semibold text-xs"
+            onClick={handleBuyNow}
+          >
+            <CreditCard className="w-4 h-4 mr-1" />
+            Comprar via PIX
+          </Button>
+          
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="w-full group-hover:border-primary/50 transition-colors duration-300 text-xs"
             onClick={handleAddToCart}
           >
             <ShoppingCart className="w-4 h-4 mr-1" />
-            Adicionar
+            Adicionar ao Carrinho
           </Button>
         </div>
       </CardContent>

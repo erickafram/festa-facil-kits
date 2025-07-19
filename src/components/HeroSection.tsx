@@ -27,7 +27,7 @@ export const HeroSection = () => {
             <div className="space-y-6">
               <div className="inline-flex items-center px-4 py-2 bg-gradient-glass backdrop-blur-sm rounded-full border border-primary/20 shadow-soft">
                 <div className="w-2 h-2 bg-primary rounded-full animate-pulse mr-3"></div>
-                <span className="text-sm font-medium text-primary">✨ Mais de 500 festas realizadas</span>
+                <span className="text-sm font-medium text-primary">✨ Mais de 1000 festas realizadas</span>
               </div>
               
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight">

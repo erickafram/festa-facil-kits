@@ -8,11 +8,22 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useCart } from "@/hooks/useCart";
 import { useAuth } from "@/contexts/AuthContext";
 
-// Menus principais para landing page
+// Função para scroll suave para seções
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+};
+
+// Menus principais para landing page com scroll
 const mainMenuItems = [
-  { name: "Infantil", href: "#infantil" },
-  { name: "Festas", href: "#festas" },
-  { name: "Temáticos", href: "#tematicos" },
+  { name: "Infantil", sectionId: "produtos" },
+  { name: "Festas", sectionId: "produtos" },
+  { name: "Temáticos", sectionId: "produtos" },
 ];
 
 export const Header = () => {
@@ -39,13 +50,13 @@ export const Header = () => {
             <div className="ml-10 flex items-center space-x-6">
               {/* Menu Principal Simplificado */}
               {mainMenuItems.map((item) => (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
+                  onClick={() => scrollToSection(item.sectionId)}
                   className="text-foreground hover:text-[#624e83] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-accent/50"
                 >
                   {item.name}
-                </a>
+                </button>
               ))}
             </div>
           </div>
@@ -132,14 +143,16 @@ export const Header = () => {
             <div className="px-2 pt-2 pb-3 space-y-1">
               {/* Menu Mobile Simplificado */}
               {mainMenuItems.map((item) => (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
-                  className="text-foreground hover:text-[#624e83] block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    scrollToSection(item.sectionId);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-foreground hover:text-[#624e83] block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 w-full text-left"
                 >
                   {item.name}
-                </a>
+                </button>
               ))}
 
               <div className="pt-4 pb-2">
