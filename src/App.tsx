@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { ScrollToTop } from "@/components/ScrollToTop";
-import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
@@ -25,7 +25,6 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
-          <WhatsAppFloat />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />

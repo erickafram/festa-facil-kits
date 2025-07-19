@@ -16,7 +16,7 @@ export const ProductsSection = () => {
   }, []);
 
   return (
-    <section id="produtos" className="py-20 bg-background">
+    <section id="produtos" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Featured Products */}
