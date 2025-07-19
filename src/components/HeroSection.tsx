@@ -12,7 +12,7 @@ const benefits = [
 
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-[95vh] flex items-center overflow-hidden bg-gradient-subtle">
+    <section id="hero" className="relative min-h-[95vh] flex items-center overflow-hidden bg-gradient-subtle">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-primary rounded-full opacity-10 animate-float blur-3xl"></div>

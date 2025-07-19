@@ -44,7 +44,7 @@ const categories = [
 
 export const CategoriesSection = () => {
   return (
-    <section className="py-24 bg-gradient-to-br from-background via-accent/5 to-secondary/5 relative overflow-hidden">
+    <section id="categorias" className="py-24 bg-gradient-to-br from-background via-accent/5 to-secondary/5 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-primary rounded-full opacity-5 animate-float blur-3xl"></div>

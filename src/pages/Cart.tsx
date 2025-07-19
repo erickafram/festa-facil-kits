@@ -60,19 +60,14 @@ const Cart = () => {
   const finalPrice = totalPrice - discountAmount;
 
   const handleCheckout = () => {
-    // Simular geração de código PIX
-    const pixCode = `00020126580014BR.GOV.BCB.PIX0136${Math.random().toString(36).substring(2, 15)}@decorae.com.br5204000053039865802BR5913DECORAE LTDA6009SAO PAULO62070503***6304${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
-    
     toast({
-      title: "Checkout PIX Gerado!",
-      description: `Código PIX copiado! Valor: ${formatPrice(finalPrice)}. Use o código PIX para finalizar o pagamento.`,
-      duration: 5000,
+      title: "Redirecionando para pagamento",
+      description: "Você será direcionado para escolher a forma de pagamento.",
+      duration: 3000,
     });
-
-    // Copiar código PIX para clipboard
-    navigator.clipboard.writeText(pixCode).then(() => {
-      console.log('Código PIX copiado:', pixCode);
-    });
+    
+    // Aqui você pode redirecionar para uma página de checkout ou abrir um modal
+    console.log('Redirecionando para checkout com valor:', finalPrice);
   };
 
   if (items.length === 0) {
@@ -265,8 +260,7 @@ const Cart = () => {
                   className="w-full bg-gradient-primary hover:shadow-glow"
                   onClick={handleCheckout}
                 >
-                  <CreditCard className="w-4 h-4 mr-2" />
-                  Finalizar Compra
+                  Ir para Pagamento
                 </Button>
               </CardContent>
             </Card>
@@ -290,6 +284,47 @@ const Cart = () => {
                 </div>
                 <div className="text-xs text-muted-foreground">
                   Coletamos os itens no dia seguinte à festa
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Payment Options */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center">
+                  <CreditCard className="w-5 h-5 mr-2 text-primary" />
+                  Formas de Pagamento
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 cursor-pointer">
+                    <div className="flex items-center">
+                      <div className="w-8 h-8 bg-green-100 rounded flex items-center justify-center mr-3">
+                        <span className="text-green-600 font-bold text-xs">PIX</span>
+                      </div>
+                      <span className="font-medium">PIX</span>
+                    </div>
+                    <span className="text-sm text-green-600 font-medium">5% desconto</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 cursor-pointer">
+                    <div className="flex items-center">
+                      <CreditCard className="w-8 h-8 text-blue-600 mr-3" />
+                      <span className="font-medium">Cartão de Crédito</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground">até 12x</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 cursor-pointer">
+                    <div className="flex items-center">
+                      <div className="w-8 h-8 bg-orange-100 rounded flex items-center justify-center mr-3">
+                        <span className="text-orange-600 font-bold text-xs">$</span>
+                      </div>
+                      <span className="font-medium">Boleto</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground">3% desconto</span>
+                  </div>
                 </div>
               </CardContent>
             </Card>

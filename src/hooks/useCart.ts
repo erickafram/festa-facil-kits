@@ -41,6 +41,9 @@ export const useCart = () => {
   // Save cart to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    
+    // Dispatch custom event to notify components about cart changes
+    window.dispatchEvent(new CustomEvent('cartUpdated', { detail: cart }));
   }, [cart]);
 
   const addToCart = (item: Omit<CartItem, 'quantity'>) => {

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,16 +22,36 @@ const scrollToSection = (sectionId: string) => {
 
 // Menus principais para landing page com scroll
 const mainMenuItems = [
-  { name: "Infantil", sectionId: "produtos" },
-  { name: "Festas", sectionId: "produtos" },
-  { name: "Temáticos", sectionId: "produtos" },
+  { name: "Início", sectionId: "hero" },
+  { name: "Escolha o kit", sectionId: "categorias" },
+  { name: "Kits Mais Alugados", sectionId: "produtos" },
+  { name: "Lançamentos", sectionId: "produtos" },
+  { name: "Catálogo Completo", sectionId: "produtos" },
+  { name: "Como funciona?", sectionId: "como-funciona" },
 ];
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { totalItems } = useCart();
+  const { totalItems, items } = useCart();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [cartCount, setCartCount] = useState(totalItems);
+
+  // Listen for cart updates
+  useEffect(() => {
+    setCartCount(totalItems);
+  }, [totalItems]);
+
+  useEffect(() => {
+    const handleCartUpdate = (event: CustomEvent) => {
+      setCartCount(event.detail.totalItems);
+    };
+
+    window.addEventListener('cartUpdated', handleCartUpdate as EventListener);
+    return () => {
+      window.removeEventListener('cartUpdated', handleCartUpdate as EventListener);
+    };
+  }, []);
 
   return (
     <header className="bg-background/95 backdrop-blur-md border-b border-border sticky top-0 z-50 shadow-card">
@@ -76,9 +97,9 @@ export const Header = () => {
             >
               <ShoppingCart className="w-4 h-4" />
               <span className="ml-2 hidden md:inline">Carrinho</span>
-              {totalItems > 0 && (
+              {cartCount > 0 && (
                 <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs bg-[#624e83] text-white">
-                  {totalItems}
+                  {cartCount}
                 </Badge>
               )}
             </Button>

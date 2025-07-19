@@ -42,24 +42,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     });
   };
 
-  const handleBuyNow = () => {
-    addToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      originalPrice: product.originalPrice,
-      image: product.image,
-      category: product.category,
-    });
-
-    toast({
-      title: "Redirecionando para checkout",
-      description: "Você será direcionado para finalizar a compra via PIX.",
-    });
-
-    // Redireciona para o carrinho
-    navigate('/cart');
-  };
   const getBadgeVariant = (badge?: string) => {
     switch (badge) {
       case "Mais Alugado":
@@ -181,19 +163,9 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
         <div className="flex flex-col space-y-2 pt-2">
           <Button 
-            variant="default" 
-            size="sm" 
-            className="w-full bg-gradient-primary hover:shadow-glow transform hover:scale-105 transition-all duration-300 font-semibold text-xs"
-            onClick={handleBuyNow}
-          >
-            <CreditCard className="w-4 h-4 mr-1" />
-            Comprar via PIX
-          </Button>
-          
-          <Button 
             variant="outline" 
             size="sm" 
-            className="w-full group-hover:border-primary/50 transition-colors duration-300 text-xs"
+            className="w-full bg-gradient-primary hover:shadow-glow transform hover:scale-105 transition-all duration-300 font-semibold text-xs text-primary-foreground"
             onClick={handleAddToCart}
           >
             <ShoppingCart className="w-4 h-4 mr-1" />
