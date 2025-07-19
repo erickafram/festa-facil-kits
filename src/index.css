@@ -17,15 +17,15 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* Blue color palette */
-    --primary: 210 100% 50%; /* Vibrant blue */
+    /* Purple color palette - Decorae */
+    --primary: 260 35% 45%; /* #624e83 */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 210 100% 70%;
+    --primary-glow: 260 35% 65%;
 
-    --secondary: 230 85% 55%; /* Deep blue */
+    --secondary: 270 30% 50%; /* Deep purple */
     --secondary-foreground: 0 0% 100%;
 
-    --accent: 195 100% 60%; /* Cyan blue */
+    --accent: 280 40% 60%; /* Light purple */
     --accent-foreground: 222.2 84% 4.9%;
 
     --muted: 210 40% 96.1%;
@@ -36,19 +36,19 @@ All colors MUST be HSL.
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 210 100% 50%;
+    --ring: 260 35% 45%;
 
-    /* Blue-themed gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(210 100% 50%), hsl(230 85% 55%));
-    --gradient-hero: linear-gradient(135deg, hsl(210 100% 50%) 0%, hsl(230 85% 55%) 50%, hsl(195 100% 60%) 100%);
+    /* Purple-themed gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(260 35% 45%), hsl(270 30% 50%));
+    --gradient-hero: linear-gradient(135deg, hsl(260 35% 45%) 0%, hsl(270 30% 50%) 50%, hsl(280 40% 60%) 100%);
     --gradient-card: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(210 100% 98%) 100%);
     --gradient-subtle: linear-gradient(135deg, hsl(210 20% 98%) 0%, hsl(220 15% 96%) 100%);
     --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
     
-    /* Shadows with blue colors */
-    --shadow-elegant: 0 20px 40px -12px hsl(210 100% 50% / 0.25);
-    --shadow-glow: 0 0 50px hsl(210 100% 70% / 0.3);
-    --shadow-card: 0 8px 25px -5px hsl(210 100% 50% / 0.1);
+    /* Shadows with purple colors */
+    --shadow-elegant: 0 20px 40px -12px hsl(260 35% 45% / 0.25);
+    --shadow-glow: 0 0 50px hsl(260 35% 65% / 0.3);
+    --shadow-card: 0 8px 25px -5px hsl(260 35% 45% / 0.1);
     --shadow-soft: 0 4px 20px -2px hsl(210 50% 90% / 0.8);
 
     /* Animations */

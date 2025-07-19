@@ -8,20 +8,12 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useCart } from "@/hooks/useCart";
 import { useAuth } from "@/contexts/AuthContext";
 
-const menuCategories = {
-  infantil: [
-    { name: "Infantil Feminino", href: "#infantil-feminino" },
-    { name: "Infantil Masculino", href: "#infantil-masculino" },
-  ],
-  festas: [
-    { name: "Festa Adulto", href: "#festa-adulto" },
-    { name: "Chá Revelação", href: "#cha-revelacao" },
-    { name: "Chá de Bebê", href: "#cha-bebe" },
-  ],
-  outros: [
-    { name: "Temáticos", href: "#tematicos" },
-  ]
-};
+// Menus principais para landing page
+const mainMenuItems = [
+  { name: "Infantil", href: "#infantil" },
+  { name: "Festas", href: "#festas" },
+  { name: "Temáticos", href: "#tematicos" },
+];
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -36,8 +28,8 @@ export const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="/">
-              <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                Infinitos Sonhos
+              <h1 className="text-2xl font-bold text-[#624e83]">
+                Decorae
               </h1>
             </Link>
           </div>
@@ -45,67 +37,36 @@ export const Header = () => {
           {/* Desktop Navigation */}
           <div className="hidden lg:block">
             <div className="ml-10 flex items-center space-x-6">
-              {/* Infantil Dropdown */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center space-x-1 text-foreground hover:text-primary">
-                    <span>Infantil</span>
-                    <ChevronDown className="w-4 h-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  {menuCategories.infantil.map((item) => (
-                    <DropdownMenuItem key={item.name} asChild>
-                      <a href={item.href}>{item.name}</a>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              {/* Festas Dropdown */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center space-x-1 text-foreground hover:text-primary">
-                    <span>Festas</span>
-                    <ChevronDown className="w-4 h-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  {menuCategories.festas.map((item) => (
-                    <DropdownMenuItem key={item.name} asChild>
-                      <a href={item.href}>{item.name}</a>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              {/* Temáticos Link */}
-              <a
-                href="#tematicos"
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-accent/50"
-              >
-                Temáticos
-              </a>
+              {/* Menu Principal Simplificado */}
+              {mainMenuItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-foreground hover:text-[#624e83] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-accent/50"
+                >
+                  {item.name}
+                </a>
+              ))}
             </div>
           </div>
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-4">
-            <Button variant="outline" size="sm" className="hidden sm:flex items-center">
+            <Button variant="outline" size="sm" className="hidden sm:flex items-center hover:text-[#624e83] hover:border-[#624e83]">
               <Phone className="w-4 h-4" />
               <span className="ml-2 hidden md:inline">Contato</span>
             </Button>
             
             <Button 
-              variant="cart" 
+              variant="outline" 
               size="sm" 
-              className="relative flex items-center"
+              className="relative flex items-center hover:text-[#624e83] hover:border-[#624e83]"
               onClick={() => navigate('/cart')}
             >
               <ShoppingCart className="w-4 h-4" />
               <span className="ml-2 hidden md:inline">Carrinho</span>
               {totalItems > 0 && (
-                <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs bg-primary text-primary-foreground">
+                <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs bg-[#624e83] text-white">
                   {totalItems}
                 </Badge>
               )}
@@ -117,7 +78,7 @@ export const Header = () => {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="sm" className="relative">
                     <Avatar className="w-8 h-8">
-                      <AvatarFallback className="text-xs bg-gradient-primary text-primary-foreground">
+                      <AvatarFallback className="text-xs bg-[#624e83] text-white">
                         {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
@@ -140,7 +101,7 @@ export const Header = () => {
               <Button 
                 variant="outline" 
                 size="sm"
-                className="flex items-center"
+                className="flex items-center hover:text-[#624e83] hover:border-[#624e83]"
                 onClick={() => navigate('/login')}
               >
                 <User className="w-4 h-4 mr-2" />
@@ -169,47 +130,20 @@ export const Header = () => {
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-border mt-2">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {/* Mobile Infantil Section */}
-              <div className="py-2">
-                <div className="text-sm font-semibold text-muted-foreground px-3 py-1">Infantil</div>
-                {menuCategories.infantil.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="text-foreground hover:text-primary block px-6 py-2 rounded-md text-base font-medium transition-colors duration-200"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-
-              {/* Mobile Festas Section */}
-              <div className="py-2">
-                <div className="text-sm font-semibold text-muted-foreground px-3 py-1">Festas</div>
-                {menuCategories.festas.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="text-foreground hover:text-primary block px-6 py-2 rounded-md text-base font-medium transition-colors duration-200"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-
-              {/* Mobile Temáticos */}
-              <a
-                href="#tematicos"
-                className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Temáticos
-              </a>
+              {/* Menu Mobile Simplificado */}
+              {mainMenuItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-foreground hover:text-[#624e83] block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </a>
+              ))}
 
               <div className="pt-4 pb-2">
-                <Button variant="outline" className="w-full mb-2 flex items-center justify-center">
+                <Button variant="outline" className="w-full mb-2 flex items-center justify-center hover:text-[#624e83] hover:border-[#624e83]">
                   <Phone className="w-4 h-4" />
                   <span className="ml-2">Contato</span>
                 </Button>
