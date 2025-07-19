@@ -264,7 +264,7 @@ export const products: Product[] = [
 export const categories = [
   "Todos",
   "Infantil Feminino",
-  "Infantil Masculino", 
+  "Infantil Masculino",
   "Festa Adulto",
   "Chá Revelação",
   "Chá de Bebê",
