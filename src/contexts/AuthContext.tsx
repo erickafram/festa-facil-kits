@@ -13,7 +13,7 @@ export interface User {
 interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<boolean>;
-  register: (name: string, email: string, password: string) => Promise<boolean>;
+  register: (name: string, email: string, password: string, phone?: string) => Promise<boolean>;
   logout: () => void;
   isLoading: boolean;
 }
@@ -87,7 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return false;
   };
 
-  const register = async (name: string, email: string, password: string): Promise<boolean> => {
+  const register = async (name: string, email: string, password: string, phone?: string): Promise<boolean> => {
     setIsLoading(true);
     
     // Simulate API call
@@ -105,8 +105,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       id: Date.now().toString(),
       name,
       email,
-      role: 'user'
+      role: 'user',
+      phone: phone || undefined
     };
+    
+    // Add to mock users array for future logins
+    mockUsers.push({
+      ...newUser,
+      password
+    });
     
     setUser(newUser);
     localStorage.setItem('infinitos-sonhos-user', JSON.stringify(newUser));

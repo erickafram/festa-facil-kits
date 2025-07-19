@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from '@/hooks/use-toast';
-import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, Phone } from 'lucide-react';
 
 const Login = () => {
   const { user, login, register, isLoading } = useAuth();
@@ -15,7 +15,8 @@ const Login = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    password: ''
+    password: '',
+    phone: ''
   });
 
   if (user) {
@@ -53,7 +54,7 @@ const Login = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.email || !formData.password) {
+    if (!formData.name || !formData.email || !formData.password || !formData.phone) {
       toast({
         title: "Erro",
         description: "Por favor, preencha todos os campos.",
@@ -71,7 +72,18 @@ const Login = () => {
       return;
     }
 
-    const success = await register(formData.name, formData.email, formData.password);
+    // Validação básica do telefone (apenas números e pelo menos 10 dígitos)
+    const phoneNumbers = formData.phone.replace(/\D/g, '');
+    if (phoneNumbers.length < 10) {
+      toast({
+        title: "Erro",
+        description: "Por favor, insira um número de telefone válido.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const success = await register(formData.name, formData.email, formData.password, formData.phone);
     
     if (success) {
       toast({
@@ -206,6 +218,43 @@ const Login = () => {
                         placeholder="seu@email.com"
                         value={formData.email}
                         onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        className="pl-10"
+                        required
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Telefone Celular</Label>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="(11) 99999-9999"
+                        value={formData.phone}
+                        onChange={(e) => {
+                          // Formatação automática do telefone
+                          let value = e.target.value.replace(/\D/g, '');
+                          
+                          // Limita a 11 dígitos
+                          if (value.length > 11) {
+                            value = value.slice(0, 11);
+                          }
+                          
+                          // Aplica a formatação (99) 99999-9999
+                          if (value.length >= 11) {
+                            value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+                          } else if (value.length >= 7) {
+                            value = value.replace(/(\d{2})(\d{4,5})(\d{0,4})/, '($1) $2-$3');
+                          } else if (value.length >= 3) {
+                            value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+                          } else if (value.length >= 1) {
+                            value = value.replace(/(\d{0,2})/, '($1');
+                          }
+                          
+                          setFormData({...formData, phone: value});
+                        }}
                         className="pl-10"
                         required
                       />

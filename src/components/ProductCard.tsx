@@ -26,20 +26,33 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const navigate = useNavigate();
 
   const handleAddToCart = () => {
-    addToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      originalPrice: product.originalPrice,
-      image: product.image,
-      category: product.category,
-    });
+    try {
+      console.log('Adicionando produto ao carrinho:', product);
+      
+      addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        originalPrice: product.originalPrice,
+        image: product.image,
+        category: product.category,
+      });
 
-    toast({
-      title: "Produto adicionado!",
-      description: `${product.name} foi adicionado ao carrinho. Clique no carrinho para finalizar a compra.`,
-      duration: 3000,
-    });
+      console.log('Produto adicionado com sucesso');
+
+      toast({
+        title: "Produto adicionado!",
+        description: `${product.name} foi adicionado ao carrinho.`,
+        duration: 3000,
+      });
+    } catch (error) {
+      console.error('Erro ao adicionar produto ao carrinho:', error);
+      toast({
+        title: "Erro",
+        description: "Não foi possível adicionar o produto ao carrinho.",
+        variant: "destructive",
+      });
+    }
   };
 
   const getBadgeVariant = (badge?: string) => {

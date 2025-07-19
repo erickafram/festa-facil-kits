@@ -8,22 +8,19 @@ export const PromoBar = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-primary via-secondary to-primary text-primary-foreground shadow-2xl border-t-4 border-accent animate-pulse">
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-primary via-secondary to-primary text-primary-foreground shadow-2xl border-t-4 border-accent">
       {/* Shimmer effect background */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer"></div>
       
-      <div className="container mx-auto px-4 py-4 relative">
+      <div className="container mx-auto px-2 py-2 sm:px-4 sm:py-4 relative">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4 flex-1">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3">
               <div className="relative">
-                <Zap className="w-6 h-6 text-accent animate-bounce drop-shadow-lg" />
-                <div className="absolute inset-0 w-6 h-6 text-accent animate-ping opacity-75">
-                  <Zap className="w-6 h-6" />
-                </div>
+                <Zap className="w-4 h-4 sm:w-6 sm:h-6 text-accent drop-shadow-lg" />
               </div>
               <div className="flex flex-col">
-                <span className="font-black text-sm md:text-lg tracking-wider">
+                <span className="font-black text-xs sm:text-sm md:text-lg tracking-wider">
                   🚨 PROMOÇÃO RELÂMPAGO! 🚨
                 </span>
                 <span className="text-xs md:text-sm font-medium opacity-90">
@@ -33,12 +30,12 @@ export const PromoBar = () => {
             </div>
             
             <div className="hidden sm:flex items-center space-x-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
-              <span className="text-2xl font-black text-accent drop-shadow-lg">15% OFF</span>
+              <span className="text-2xl font-black text-white drop-shadow-lg">15% OFF</span>
               <span className="text-sm font-semibold">em todos os kits!</span>
             </div>
             
             <div className="sm:hidden">
-              <span className="text-lg font-black text-accent">15% OFF</span>
+              <span className="text-sm font-black text-white">15% OFF</span>
             </div>
             
             {/* Countdown timer visual effect */}
@@ -47,18 +44,19 @@ export const PromoBar = () => {
               <span>:</span>
               <span className="bg-white/20 px-2 py-1 rounded font-bold">59m</span>
               <span>:</span>
-              <span className="bg-white/20 px-2 py-1 rounded font-bold animate-pulse">45s</span>
+              <span className="bg-white/20 px-2 py-1 rounded font-bold">45s</span>
             </div>
           </div>
           
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-1 sm:space-x-3">
             <Button 
               variant="secondary" 
               size="sm"
-              className="bg-accent text-accent-foreground hover:bg-accent/90 font-black text-sm md:text-base px-6 py-3 shadow-elegant transform hover:scale-105 transition-all duration-300 animate-bounce-gentle"
+              className="bg-accent text-accent-foreground hover:bg-accent/90 font-black text-xs sm:text-sm md:text-base px-2 py-1 sm:px-6 sm:py-3 shadow-elegant transform hover:scale-105 transition-all duration-300 animate-bounce-gentle"
               onClick={() => document.getElementById('produtos')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              🎯 APROVEITAR AGORA!
+              <span className="hidden sm:inline">🎯 APROVEITAR AGORA!</span>
+              <span className="sm:hidden">🎯 APROVEITAR</span>
             </Button>
             
             <Button
@@ -74,7 +72,7 @@ export const PromoBar = () => {
         
         {/* Bottom progress bar effect */}
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
-          <div className="h-full bg-accent animate-pulse" style={{width: '76%'}}></div>
+          <div className="h-full bg-accent" style={{width: '76%'}}></div>
         </div>
       </div>
     </div>

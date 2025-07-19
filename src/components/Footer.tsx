@@ -26,32 +26,7 @@ const footerLinks = {
 export const Footer = () => {
   return (
     <footer className="bg-gradient-to-br from-primary/5 to-secondary/5 border-t border-border">
-      {/* Newsletter Section */}
-      <div className="border-b border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-xl font-bold text-foreground mb-4">
-              Fique por dentro das{" "}
-              <span className="bg-gradient-primary bg-clip-text text-transparent">
-                novidades
-              </span>
-            </h3>
-            <p className="text-muted-foreground mb-6">
-              Receba em primeira mão nossos lançamentos e promoções exclusivas
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <Input
-                type="email"
-                placeholder="Seu melhor e-mail"
-                className="flex-1"
-              />
-              <Button variant="default" className="sm:w-auto">
-                Inscrever-se
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+
 
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">

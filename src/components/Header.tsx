@@ -33,8 +33,22 @@ export const Header = () => {
   const { totalItems, items } = useCart();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [cartCount, setCartCount] = useState(totalItems);
 
   // Listen for cart updates
+  useEffect(() => {
+    setCartCount(totalItems);
+    
+    const handleCartUpdate = (event: CustomEvent) => {
+      setCartCount(event.detail.totalItems);
+    };
+
+    window.addEventListener('cartUpdated', handleCartUpdate as EventListener);
+    
+    return () => {
+      window.removeEventListener('cartUpdated', handleCartUpdate as EventListener);
+    };
+  }, [totalItems]);
 
   return (
     <header className="bg-background/95 backdrop-blur-md border-b border-border sticky top-0 z-50 shadow-card">
@@ -56,7 +70,13 @@ export const Header = () => {
               {mainMenuItems.map((item) => (
                 <button
                   key={item.name}
-                  onClick={() => scrollToSection(item.sectionId)}
+                  onClick={() => {
+                    if (item.name === "Início") {
+                      navigate('/');
+                    } else {
+                      scrollToSection(item.sectionId);
+                    }
+                  }}
                   className="text-foreground hover:text-[#624e83] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-accent/50"
                 >
                   {item.name}
@@ -80,9 +100,9 @@ export const Header = () => {
             >
               <ShoppingCart className="w-4 h-4" />
               <span className="ml-2 hidden md:inline">Carrinho</span>
-              {totalItems > 0 && (
+              {cartCount > 0 && (
                 <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs bg-[#624e83] text-white">
-                  {totalItems}
+                  {cartCount}
                 </Badge>
               )}
             </Button>
@@ -150,7 +170,11 @@ export const Header = () => {
                 <button
                   key={item.name}
                   onClick={() => {
-                    scrollToSection(item.sectionId);
+                    if (item.name === "Início") {
+                      navigate('/');
+                    } else {
+                      scrollToSection(item.sectionId);
+                    }
                     setMobileMenuOpen(false);
                   }}
                   className="text-foreground hover:text-[#624e83] block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 w-full text-left"
