@@ -31,19 +31,34 @@ export const useCart = () => {
     if (savedCart) {
       try {
         const parsedCart = JSON.parse(savedCart);
-        setCart(parsedCart);
+        const totalItems = parsedCart.items?.reduce((sum: number, item: CartItem) => sum + item.quantity, 0) || 0;
+        const totalPrice = parsedCart.items?.reduce((sum: number, item: CartItem) => sum + (item.price * item.quantity), 0) || 0;
+        
+        setCart({
+          items: parsedCart.items || [],
+          totalItems,
+          totalPrice,
+        });
       } catch (error) {
         console.error('Error loading cart from localStorage:', error);
+        setCart({
+          items: [],
+          totalItems: 0,
+          totalPrice: 0,
+        });
       }
     }
   }, []);
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    if (cart.items.length > 0 || localStorage.getItem(CART_STORAGE_KEY)) {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    }
     
     // Dispatch custom event to notify components about cart changes
-    window.dispatchEvent(new CustomEvent('cartUpdated', { detail: cart }));
+    const event = new CustomEvent('cartUpdated', { detail: cart });
+    window.dispatchEvent(event);
   }, [cart]);
 
   const addToCart = (item: Omit<CartItem, 'quantity'>) => {
@@ -64,11 +79,13 @@ export const useCart = () => {
       const totalItems = newItems.reduce((sum, item) => sum + item.quantity, 0);
       const totalPrice = newItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-      return {
+      const newCart = {
         items: newItems,
         totalItems,
         totalPrice,
       };
+      
+      return newCart;
     });
   };
 
@@ -108,11 +125,13 @@ export const useCart = () => {
   };
 
   const clearCart = () => {
-    setCart({
+    const emptyCart = {
       items: [],
       totalItems: 0,
       totalPrice: 0,
-    });
+    };
+    setCart(emptyCart);
+    localStorage.removeItem(CART_STORAGE_KEY);
   };
 
   return {

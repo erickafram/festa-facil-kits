@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Progress } from '@/components/ui/progress';
 import { 
   BarChart3, 
   Users, 
@@ -21,7 +22,11 @@ import {
   Eye,
   TrendingUp,
   Calendar,
-  ShoppingBag
+  ShoppingBag,
+  AlertCircle,
+  CheckCircle2,
+  Clock,
+  Star
 } from 'lucide-react';
 
 // Mock data
@@ -30,7 +35,10 @@ const mockStats = {
   totalOrders: 156,
   totalCustomers: 89,
   totalProducts: 42,
-  monthlyGrowth: 12.5
+  monthlyGrowth: 12.5,
+  pendingOrders: 8,
+  completedToday: 12,
+  averageRating: 4.8
 };
 
 const mockOrders = [
@@ -108,20 +116,21 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="border-b bg-card">
+      <div className="border-b bg-gradient-card shadow-card">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                Infinitos Sonhos - Admin
+              <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                Decorae - Painel Admin
               </h1>
-              <p className="text-muted-foreground">Painel administrativo</p>
+              <p className="text-muted-foreground">Gerencie sua loja de decorações</p>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-muted-foreground">
-                Olá, {user?.name}
-              </span>
-              <Button variant="outline" onClick={logout}>
+              <div className="text-right">
+                <p className="text-sm font-medium text-foreground">Olá, {user?.name}</p>
+                <p className="text-xs text-muted-foreground">Administrador</p>
+              </div>
+              <Button variant="outline" onClick={logout} className="hover:bg-destructive hover:text-destructive-foreground">
                 Sair
               </Button>
             </div>
@@ -131,7 +140,7 @@ const AdminDashboard = () => {
 
       <div className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-4 bg-accent/20 p-1">
             <TabsTrigger value="overview">Visão Geral</TabsTrigger>
             <TabsTrigger value="orders">Pedidos</TabsTrigger>
             <TabsTrigger value="customers">Clientes</TabsTrigger>
@@ -139,9 +148,60 @@ const AdminDashboard = () => {
           </TabsList>
           
           <TabsContent value="overview" className="space-y-6">
+            {/* Quick Stats Bar */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white border-0">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-blue-100 text-sm">Pedidos Hoje</p>
+                      <p className="text-2xl font-bold">{mockStats.completedToday}</p>
+                    </div>
+                    <CheckCircle2 className="w-8 h-8 text-blue-200" />
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-gradient-to-r from-orange-500 to-orange-600 text-white border-0">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-orange-100 text-sm">Pendentes</p>
+                      <p className="text-2xl font-bold">{mockStats.pendingOrders}</p>
+                    </div>
+                    <Clock className="w-8 h-8 text-orange-200" />
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white border-0">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-green-100 text-sm">Avaliação</p>
+                      <p className="text-2xl font-bold">{mockStats.averageRating}</p>
+                    </div>
+                    <Star className="w-8 h-8 text-green-200" />
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white border-0">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-purple-100 text-sm">Crescimento</p>
+                      <p className="text-2xl font-bold">+{mockStats.monthlyGrowth}%</p>
+                    </div>
+                    <TrendingUp className="w-8 h-8 text-purple-200" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
             {/* Stats Cards */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card>
+              <Card className="hover:shadow-elegant transition-all duration-300 border-primary/10">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -154,49 +214,52 @@ const AdminDashboard = () => {
                         +{mockStats.monthlyGrowth}% este mês
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-green-500 rounded-lg flex items-center justify-center shadow-lg">
                       <DollarSign className="w-6 h-6 text-green-600" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="hover:shadow-elegant transition-all duration-300 border-primary/10">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-muted-foreground">Total de Pedidos</p>
                       <p className="text-2xl font-bold text-foreground">{mockStats.totalOrders}</p>
+                      <Progress value={75} className="mt-2 h-2" />
                     </div>
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-blue-500 rounded-lg flex items-center justify-center shadow-lg">
                       <ShoppingBag className="w-6 h-6 text-blue-600" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="hover:shadow-elegant transition-all duration-300 border-primary/10">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-muted-foreground">Clientes</p>
                       <p className="text-2xl font-bold text-foreground">{mockStats.totalCustomers}</p>
+                      <p className="text-xs text-blue-600 mt-1">+5 novos esta semana</p>
                     </div>
-                    <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-purple-500 rounded-lg flex items-center justify-center shadow-lg">
                       <Users className="w-6 h-6 text-purple-600" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="hover:shadow-elegant transition-all duration-300 border-primary/10">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-muted-foreground">Produtos</p>
                       <p className="text-2xl font-bold text-foreground">{mockStats.totalProducts}</p>
+                      <p className="text-xs text-orange-600 mt-1">3 em baixo estoque</p>
                     </div>
-                    <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-r from-orange-400 to-orange-500 rounded-lg flex items-center justify-center shadow-lg">
                       <Package className="w-6 h-6 text-orange-600" />
                     </div>
                   </div>
@@ -204,16 +267,53 @@ const AdminDashboard = () => {
               </Card>
             </div>
 
+            {/* Alerts */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="border-orange-200 bg-orange-50">
+                <CardHeader>
+                  <CardTitle className="flex items-center text-orange-800">
+                    <AlertCircle className="w-5 h-5 mr-2" />
+                    Atenção Necessária
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <p className="text-sm text-orange-700">• 3 produtos com estoque baixo</p>
+                    <p className="text-sm text-orange-700">• 2 pedidos aguardando confirmação</p>
+                    <p className="text-sm text-orange-700">• 1 avaliação negativa para revisar</p>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card className="border-green-200 bg-green-50">
+                <CardHeader>
+                  <CardTitle className="flex items-center text-green-800">
+                    <CheckCircle2 className="w-5 h-5 mr-2" />
+                    Tudo em Ordem
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <p className="text-sm text-green-700">• Sistema funcionando perfeitamente</p>
+                    <p className="text-sm text-green-700">• Backup realizado hoje</p>
+                    <p className="text-sm text-green-700">• Todas as entregas no prazo</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
             {/* Recent Activity */}
             <div className="grid lg:grid-cols-2 gap-6">
-              <Card>
+              <Card className="shadow-elegant border-primary/10">
                 <CardHeader>
-                  <CardTitle>Pedidos Recentes</CardTitle>
+                  <CardTitle className="flex items-center">
+                    <ShoppingBag className="w-5 h-5 mr-2 text-primary" />
+                    Pedidos Recentes
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {mockOrders.slice(0, 5).map((order) => (
-                      <div key={order.id} className="flex items-center justify-between">
+                      <div key={order.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-accent/10 transition-colors">
                         <div>
                           <p className="font-medium">#{order.id} - {order.customer}</p>
                           <p className="text-sm text-muted-foreground">
@@ -230,23 +330,26 @@ const AdminDashboard = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="shadow-elegant border-primary/10">
                 <CardHeader>
-                  <CardTitle>Produtos Mais Alugados</CardTitle>
+                  <CardTitle className="flex items-center">
+                    <TrendingUp className="w-5 h-5 mr-2 text-primary" />
+                    Produtos Mais Alugados
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-primary/5 to-primary/10">
                       <span className="text-sm">Kit Pegue e Monte Minnie</span>
-                      <Badge>23 aluguéis</Badge>
+                      <Badge className="bg-primary text-primary-foreground">23 aluguéis</Badge>
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-secondary/5 to-secondary/10">
                       <span className="text-sm">Kit Pegue e Monte Futebol</span>
-                      <Badge>18 aluguéis</Badge>
+                      <Badge className="bg-secondary text-secondary-foreground">18 aluguéis</Badge>
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-accent/5 to-accent/10">
                       <span className="text-sm">Kit pegue e monte Tardezinha</span>
-                      <Badge>15 aluguéis</Badge>
+                      <Badge className="bg-accent text-accent-foreground">15 aluguéis</Badge>
                     </div>
                   </div>
                 </CardContent>
@@ -256,20 +359,23 @@ const AdminDashboard = () => {
           
           <TabsContent value="orders" className="space-y-6">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Gerenciar Pedidos</h2>
+              <div>
+                <h2 className="text-2xl font-bold text-foreground">Gerenciar Pedidos</h2>
+                <p className="text-muted-foreground">Acompanhe e gerencie todos os pedidos</p>
+              </div>
               <div className="flex space-x-2">
-                <Button variant="outline">
+                <Button variant="outline" className="hover:bg-primary hover:text-primary-foreground">
                   <Download className="w-4 h-4 mr-2" />
                   Exportar
                 </Button>
-                <Button variant="outline">
+                <Button variant="outline" className="hover:bg-primary hover:text-primary-foreground">
                   <Filter className="w-4 h-4 mr-2" />
                   Filtros
                 </Button>
               </div>
             </div>
 
-            <Card>
+            <Card className="shadow-elegant border-primary/10">
               <CardHeader>
                 <div className="flex items-center space-x-2">
                   <Search className="w-4 h-4 text-muted-foreground" />
@@ -284,7 +390,7 @@ const AdminDashboard = () => {
               <CardContent>
                 <div className="space-y-4">
                   {mockOrders.map((order) => (
-                    <div key={order.id} className="border rounded-lg p-4">
+                    <div key={order.id} className="border rounded-lg p-4 hover:shadow-card transition-all duration-300">
                       <div className="flex items-center justify-between mb-2">
                         <div>
                           <h3 className="font-semibold">Pedido #{order.id}</h3>
@@ -294,10 +400,10 @@ const AdminDashboard = () => {
                         </div>
                         <div className="flex items-center space-x-2">
                           {getStatusBadge(order.status)}
-                          <Button variant="outline" size="sm">
+                          <Button variant="outline" size="sm" className="hover:bg-blue-500 hover:text-white">
                             <Eye className="w-4 h-4" />
                           </Button>
-                          <Button variant="outline" size="sm">
+                          <Button variant="outline" size="sm" className="hover:bg-green-500 hover:text-white">
                             <Edit className="w-4 h-4" />
                           </Button>
                         </div>
@@ -316,18 +422,21 @@ const AdminDashboard = () => {
           
           <TabsContent value="customers" className="space-y-6">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Gerenciar Clientes</h2>
-              <Button>
+              <div>
+                <h2 className="text-2xl font-bold text-foreground">Gerenciar Clientes</h2>
+                <p className="text-muted-foreground">Visualize e gerencie sua base de clientes</p>
+              </div>
+              <Button className="bg-gradient-primary hover:shadow-glow">
                 <Plus className="w-4 h-4 mr-2" />
                 Novo Cliente
               </Button>
             </div>
 
-            <Card>
+            <Card className="shadow-elegant border-primary/10">
               <CardContent className="p-6">
                 <div className="space-y-4">
                   {mockCustomers.map((customer) => (
-                    <div key={customer.id} className="border rounded-lg p-4">
+                    <div key={customer.id} className="border rounded-lg p-4 hover:shadow-card transition-all duration-300">
                       <div className="flex items-center justify-between">
                         <div>
                           <h3 className="font-semibold">{customer.name}</h3>
@@ -351,41 +460,47 @@ const AdminDashboard = () => {
           
           <TabsContent value="products" className="space-y-6">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Gerenciar Produtos</h2>
-              <Button>
+              <div>
+                <h2 className="text-2xl font-bold text-foreground">Gerenciar Produtos</h2>
+                <p className="text-muted-foreground">Adicione e gerencie seus produtos</p>
+              </div>
+              <Button className="bg-gradient-primary hover:shadow-glow">
                 <Plus className="w-4 h-4 mr-2" />
                 Novo Produto
               </Button>
             </div>
 
-            <Card>
+            <Card className="shadow-elegant border-primary/10">
               <CardHeader>
-                <CardTitle>Adicionar Novo Produto</CardTitle>
+                <CardTitle className="flex items-center">
+                  <Package className="w-5 h-5 mr-2 text-primary" />
+                  Adicionar Novo Produto
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="product-name">Nome do Produto</Label>
-                    <Input id="product-name" placeholder="Ex: Kit Pegue e Monte..." />
+                    <Input id="product-name" placeholder="Ex: Kit Pegue e Monte..." className="mt-1" />
                   </div>
                   <div>
                     <Label htmlFor="product-price">Preço</Label>
-                    <Input id="product-price" type="number" placeholder="280" />
+                    <Input id="product-price" type="number" placeholder="280" className="mt-1" />
                   </div>
                   <div>
                     <Label htmlFor="product-category">Categoria</Label>
-                    <Input id="product-category" placeholder="Ex: Infantil Feminino" />
+                    <Input id="product-category" placeholder="Ex: Infantil Feminino" className="mt-1" />
                   </div>
                   <div>
                     <Label htmlFor="product-stock">Estoque</Label>
-                    <Input id="product-stock" type="number" placeholder="10" />
+                    <Input id="product-stock" type="number" placeholder="10" className="mt-1" />
                   </div>
                 </div>
                 <div>
                   <Label htmlFor="product-description">Descrição</Label>
-                  <Textarea id="product-description" placeholder="Descrição do produto..." />
+                  <Textarea id="product-description" placeholder="Descrição do produto..." className="mt-1" />
                 </div>
-                <Button className="bg-gradient-primary">
+                <Button className="bg-gradient-primary hover:shadow-glow">
                   Adicionar Produto
                 </Button>
               </CardContent>
