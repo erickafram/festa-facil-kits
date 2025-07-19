@@ -30,7 +30,7 @@ export const Footer = () => {
       <div className="border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-2xl font-bold text-foreground mb-4">
+            <h3 className="text-xl font-bold text-foreground mb-4">
               Fique por dentro das{" "}
               <span className="bg-gradient-primary bg-clip-text text-transparent">
                 novidades

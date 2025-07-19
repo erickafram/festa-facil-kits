@@ -21,14 +21,14 @@ export const HeroSection = () => {
           {/* Hero Content */}
           <div className="space-y-8 animate-fade-in">
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight">
                 Transforme sua festa em{" "}
                 <span className="bg-gradient-primary bg-clip-text text-transparent">
                   momentos inesquecíveis
                 </span>
               </h1>
               
-              <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
+              <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
                 Kits completos Pegue e Monte para decoração de mesa. 
                 Prático, bonito e sem complicação!
               </p>

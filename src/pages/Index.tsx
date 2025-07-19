@@ -5,6 +5,7 @@ import { ProductsSection } from "@/components/ProductsSection";
 import { BenefitsSection } from "@/components/BenefitsSection";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
 import { Footer } from "@/components/Footer";
+import { PromoBar } from "@/components/PromoBar";
 
 const Index = () => {
   return (
@@ -16,6 +17,9 @@ const Index = () => {
       <BenefitsSection />
       <HowItWorksSection />
       <Footer />
+      <PromoBar />
+      {/* Add padding bottom to account for fixed PromoBar */}
+      <div className="h-16"></div>
     </div>
   );
 };

@@ -39,13 +39,13 @@ export const CategoriesSection = () => {
     <section className="py-20 bg-gradient-to-br from-background to-accent/5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
             Escolha o kit ideal para sua{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
               celebração
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Diferentes opções para tornar sua festa única e especial
           </p>
         </div>

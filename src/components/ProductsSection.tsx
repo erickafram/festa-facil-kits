@@ -61,13 +61,13 @@ export const ProductsSection = () => {
         {/* Featured Products */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
               Kits{" "}
               <span className="bg-gradient-primary bg-clip-text text-transparent">
                 Mais Alugados
               </span>
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-lg text-muted-foreground">
               Os favoritos dos nossos clientes
             </p>
           </div>
@@ -82,12 +82,12 @@ export const ProductsSection = () => {
         {/* New Products */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
               <span className="bg-gradient-primary bg-clip-text text-transparent">
                 Lançamentos
               </span>
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-lg text-muted-foreground">
               Novidades que chegaram para encantar
             </p>
           </div>
@@ -102,13 +102,13 @@ export const ProductsSection = () => {
         {/* All Products with Filters */}
         <div>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
               Catálogo{" "}
               <span className="bg-gradient-primary bg-clip-text text-transparent">
                 Completo
               </span>
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-lg text-muted-foreground">
               Explore todos os nossos kits de festa
             </p>
           </div>
