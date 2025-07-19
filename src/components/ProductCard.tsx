@@ -110,7 +110,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
       <CardContent className="p-6 space-y-4">
         <div className="space-y-2">
-          <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2 leading-tight">
+          <h3 className="font-bold text-base text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2 leading-tight">
             {product.name}
           </h3>
           
@@ -142,17 +142,17 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
         <div className="space-y-2">
           <div className="flex items-baseline space-x-3">
-            <span className="text-3xl font-bold text-primary group-hover:scale-110 transition-transform duration-300">
+            <span className="text-2xl font-bold text-primary group-hover:scale-110 transition-transform duration-300">
               {formatPrice(product.price)}
             </span>
             {product.originalPrice && (
-              <span className="text-lg text-muted-foreground line-through">
+              <span className="text-base text-muted-foreground line-through">
                 {formatPrice(product.originalPrice)}
               </span>
             )}
           </div>
           {product.originalPrice && (
-            <div className="text-sm text-green-600 font-semibold">
+            <div className="text-xs text-green-600 font-semibold">
               Economize {formatPrice(product.originalPrice - product.price)}
             </div>
           )}
@@ -162,7 +162,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <Button 
             variant="outline" 
             size="sm" 
-            className="flex-1 group-hover:border-primary/50 transition-colors duration-300"
+            className="flex-1 group-hover:border-primary/50 transition-colors duration-300 text-xs"
             onClick={() => {
               toast({
                 title: "Ver detalhes",
@@ -176,7 +176,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <Button 
             variant="default" 
             size="sm" 
-            className="flex-1 bg-gradient-primary hover:shadow-glow transform hover:scale-105 transition-all duration-300 font-semibold"
+            className="flex-1 bg-gradient-primary hover:shadow-glow transform hover:scale-105 transition-all duration-300 font-semibold text-xs"
             onClick={handleAddToCart}
           >
             <ShoppingCart className="w-4 h-4 mr-1" />

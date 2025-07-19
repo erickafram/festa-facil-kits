@@ -61,13 +61,13 @@ export const ProductsSection = () => {
         {/* Featured Products */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4">
               Kits{" "}
               <span className="bg-gradient-primary bg-clip-text text-transparent">
                 Mais Alugados
               </span>
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-base text-muted-foreground">
               Os favoritos dos nossos clientes
             </p>
           </div>
